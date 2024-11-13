@@ -7,7 +7,7 @@ tado.login(process.argv[2], process.argv[3])
   tado.getMe()
   .then(async (resp) => {
     var anyOffline = false;
-    var aOffline = "";
+    var aOffline = [];
     for(var home of resp["homes"]) {
       try {
         var devices = await tado.getDevices(home["id"]);
@@ -18,7 +18,7 @@ tado.login(process.argv[2], process.argv[3])
           }
         }
       } catch(e) {
-        console.log("Critical: getDevices failed for homeId " + home["id"])
+        console.log("Critical: getDevices failed for homeId " + home["id"], e)
         process.exit(2);
       }
     }
